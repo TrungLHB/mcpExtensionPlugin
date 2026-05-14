@@ -29,12 +29,20 @@ dependencies {
 ```
 
 In `plugin.xml`:
-* Add the following lines to depend on the plugin and to provide a custom tool
+* Add the dependency on the main plugin:
 ```xml
 <depends>com.intellij.mcpServer</depends>
-
-<extensions defaultExtensionNs="com.intellij.mcpServer">
-    <mcpTool implementation="org.jetbrains.mcpextensiondemo.MyCustomTool"/>
-</extensions>
 ```
 
+* Register this plugin's settings UI and startup activity. Tools are registered at runtime so the user can enable and disable them under Settings | Tools | MCP Extension Demo:
+```xml
+<extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceImplementation="org.jetbrains.mcpextensiondemo.McpToolSettings"/>
+    <applicationConfigurable
+            instance="org.jetbrains.mcpextensiondemo.McpToolSettingsConfigurable"
+            id="org.jetbrains.mcpextensiondemo.mcpTools"
+            displayName="MCP Extension Demo"
+            parentId="tools"/>
+    <postStartupActivity implementation="org.jetbrains.mcpextensiondemo.McpToolStartupActivity"/>
+</extensions>
+```

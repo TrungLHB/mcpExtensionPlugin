@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "org.jetbrains"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -32,6 +32,8 @@ dependencies {
 // from the main plugin and the current one
 dependencies {
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    testImplementation(kotlin("test-junit5"))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 intellijPlatform {
@@ -41,7 +43,7 @@ intellijPlatform {
         }
 
         changeNotes = """
-            Initial version
+            Initial release featuring the StartNewIntellijProject MCP tool.
         """.trimIndent()
     }
 }
@@ -51,6 +53,10 @@ tasks {
     withType<JavaCompile> {
         sourceCompatibility = "21"
         targetCompatibility = "21"
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }
 

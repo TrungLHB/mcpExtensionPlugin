@@ -8,13 +8,12 @@
     <name>MCPExtensionDemo</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor url="https://www.yourcompany.com">YourCompany</vendor>
+    <vendor url="https://github.com/TrungLHB">TrungLHB</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-description -->
     <description><![CDATA[
-        Enter short description for your plugin here.<br>
-        <em>most HTML tags may be used</em>
+        A demonstration plugin extending the JetBrains MCP Server Plugin to provide custom tools and commands.
     ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -23,13 +22,15 @@
 
     <depends>com.intellij.mcpServer</depends>
 
-    <extensions defaultExtensionNs="com.intellij.mcpServer">
-        <mcpTool implementation="org.jetbrains.mcpextensiondemo.MyCustomTool"/>
-    </extensions>
-
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <applicationService serviceImplementation="org.jetbrains.mcpextensiondemo.McpToolSettings"/>
+        <applicationConfigurable
+                instance="org.jetbrains.mcpextensiondemo.McpToolSettingsConfigurable"
+                id="org.jetbrains.mcpextensiondemo.mcpTools"
+                displayName="MCP Extension Demo"
+                parentId="tools"/>
+        <postStartupActivity implementation="org.jetbrains.mcpextensiondemo.McpToolStartupActivity"/>
     </extensions>
 </idea-plugin>
